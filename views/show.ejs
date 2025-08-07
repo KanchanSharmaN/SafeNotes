@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <div class="flex justify-between items-center p-8  text-lg ">
+        <a href="/" class="cursor-pointer hover:text-blue-500">SafeNotes</a>
+        <ul class=" flex space-x-6 text-right cursor-pointer  ">
+            <li class="hover:text-blue-500"><a href="/"> Home</a></li>
+            <li class="hover:text-blue-500"><a href="/create">Create New Hisaab</a></li>
+        </ul>
+    </div>
+    <!-- <div class="px-6">
+        <p class="mb-2 text-lg font-medium text-gray-800">
+            Hisaab of <span class="text-blue-500"><%= filename %></span>
+        </p>
+        <p class="mb-4 text-gray-700"><%= data %></p>
+        <a href="/edit/<%= filename %>" class="text-blue-600 hover:underline">Edit Hisaab</a>
+    </div> -->
+    <div class="px-6 py-4 bg-gray-100 rounded-lg shadow-md">
+        <p class="mb-2 text-lg font-medium text-gray-700">
+            Hisaab of <span class="text-blue-500 font-semibold"><%= filename %></span>
+        </p>
+        <p class="mb-4 text-gray-600"><%= data %></p>
+        <a href="/edit/<%= id %> " class="text-zinc-600 font-medium hover:text-zinc-800 transition hover:underline">
+            Edit Hisaab
+        </a>
+    </div>
+
+</body>
+</html>

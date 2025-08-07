@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script src="https://unpkg.com/@tailwindcss/browser@4"></script>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <div class="flex justify-between items-center p-8 text-lg">
+        <a href="/" class="cursor-pointer hover:text-blue-500">SafeNotes</a>
+        <ul class="flex space-x-6 text-right cursor-pointer">
+            <li class="hover:text-blue-500"><a href="/">Home</a></li>
+            <li class="hover:text-blue-500"><a href="/create">Create New Hisaab</a></li>
+            <!-- Logout Button -->
+            <li>
+                
+<button onclick="confirmLogout()" class="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 cursor-pointer">
+    Logout
+</button>
+
+
+
+            </li>
+        </ul>
+    </div>
+
+    <!-- File List Section -->
+    <div class="px-15 m-5 max-w-lg">
+        <p class="font-bold font-medium">All Hisaab Kitaab</p>
+
+        <% if(files && files.length > 0) { %> 
+            <% files.forEach(function(file){ %>
+                <div class="flex bg-zinc-100 p-4 rounded-lg hover:bg-zinc-200 transition m-2">
+                    <!-- Clickable File Name -->
+                    <a href="/show/<%= file._id %>" class="block w-full text-gray-900 font-medium">
+                        <%= file.filename %>
+                    </a>
+
+                    <!-- Icons Section -->
+                    <div class="flex space-x-4">
+                        <!-- View Icon -->
+                        <a href="/show/<%= file._id %>" class="inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="24" height="24" 
+                                class="fill-current text-blue-500 hover:text-blue-700">
+                                <g data-name="19-Arrow Right">
+                                    <path d="M16 0a16 16 0 1 0 16 16A16 16 0 0 0 16 0zm0 30a14 14 0 1 1 14-14 14 14 0 0 1-14 14z"/>
+                                    <path d="m26.71 15.29-7-7-1.42 1.42 5.3 5.29H5v2h18.59l-5.29 5.29 1.41 1.41 7-7a1 1 0 0 0 0-1.41z"/>
+                                </g>
+                            </svg>
+                        </a>
+
+                        <!-- Edit Icon -->
+                        <a href="/edit/<%= file._id %>" class="inline-block">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 50 50"
+                                class="fill-current text-green-500 hover:text-green-700">
+                                <path d="M 43.125 2 C 41.878906 2 40.636719 2.488281 39.6875 3.4375 L 38.875 4.25 
+                                         L 45.75 11.125 C 45.746094 11.128906 46.5625 10.3125 46.5625 10.3125 
+                                         C 48.464844 8.410156 48.460938 5.335938 46.5625 3.4375 
+                                         C 45.609375 2.488281 44.371094 2 43.125 2 Z M 37.34375 6.03125 
+                                         C 37.117188 6.0625 36.90625 6.175781 36.75 6.34375 L 4.3125 38.8125 
+                                         C 4.183594 38.929688 4.085938 39.082031 4.03125 39.25 
+                                         L 2.03125 46.75 C 1.941406 47.09375 2.042969 47.457031 2.292969 47.707031 
+                                         C 2.542969 47.957031 2.90625 48.058594 3.25 47.96875 L 10.75 45.96875 
+                                         C 10.917969 45.914063 11.070313 45.816406 11.1875 45.6875 
+                                         L 43.65625 13.25 C 44.054688 12.863281 44.058594 12.226563 
+                                         43.671875 11.828125 C 43.285156 11.429688 42.648438 11.425781 
+                                         42.25 11.8125 L 9.96875 44.09375 L 5.90625 40.03125 
+                                         L 38.1875 7.75 C 38.488281 7.460938 38.578125 7.011719 
+                                         38.410156 6.628906 C 38.242188 6.246094 37.855469 6.007813 
+                                         37.4375 6.03125 C 37.40625 6.03125 37.375 6.03125 37.34375 6.03125 Z">
+                                </path>
+                            </svg>
+                        </a>
+
+                        <!-- Delete Icon -->
+                        <a href="javascript:void(0);" class="inline-block" onclick="confirmDelete(`<%= file._id%>`)">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" height="24" width="24" 
+                                class="fill-current text-orange-500 hover:text-orange-700">
+                                <path d="M5.755 20.283 4 8h16l-1.755 12.283A2 2 0 0 1 16.265 22h-8.53a2 2 0 0 1-1.98-1.717zM21 4h-5V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v1H3a1 1 0 0 0 0 2h18a1 1 0 0 0 0-2z"/>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            <% }) %>
+        <% } else { %>
+            <!-- Message when there are no files -->
+            <div class="text-center p-6 bg-gray-100 rounded-lg shadow-md">
+                <p class="text-gray-500 text-lg mb-4">No files created yet.</p>
+                <a href="/create" class="bg-blue-600 text-white px-4 py-2 rounded-md hover:bg-blue-700 transition">
+                    Create New Hisaab
+                </a>
+            </div>
+        <% } %>
+    </div>
+
+    <!-- Delete Confirmation Script -->
+    <script>
+        function confirmDelete(fileId){
+            if(confirm("Are you sure you want to delete this file?")){
+                window.location.href = `/delete/${fileId}`;
+            }
+        }
+
+        
+    function confirmLogout() {
+        // Ask the user for confirmation
+        if (confirm("Are you sure you want to log out?")) {
+            // If "OK" is clicked, redirect to logout route
+            window.location.href = "/logout";
+        }
+        // If "Cancel" is clicked, do nothing and stay on the current page
+    }
+
+    </script>
+</body>
+
+
+</html>
